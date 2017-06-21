@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="0dp"
+        android:background="@color/w_divider" />
+
+    <TextView
+        style="@style/section_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Weather Details" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="0dp"
+        android:background="@color/w_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_linearlayout"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="16dp"
+        android:showDividers="none">
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <org.openweathermap.ui.FontTextView
+                android:id="@+id/w_todaydetail_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:text="--°"
+                android:textColor="@color/text_primary"
+                android:textSize="45dp" />
+
+            <org.openweathermap.ui.FontTextView
+                android:id="@+id/w_todaydetail_minmax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:singleLine="true"
+                android:text="- ~ -A°"
+                android:textColor="@color/text_primary"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/todaydetail_info_layout">
+
+                <TextView
+                    style="@style/todaydetail_info_title"
+                    android:text="Feels Like" />
+
+                <org.openweathermap.ui.FontTextView
+                    android:id="@+id/w_now_fl"
+                    style="@style/todaydetail_info_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_size"
+                android:background="@color/w_divider_secondary" />
+
+            <LinearLayout style="@style/todaydetail_info_layout">
+
+                <TextView
+                    style="@style/todaydetail_info_title"
+                    android:text="Humidity" />
+
+                <org.openweathermap.ui.FontTextView
+                    android:id="@+id/w_now_hum"
+                    style="@style/todaydetail_info_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_size"
+                android:background="@color/divider_secondary" />
+
+            <LinearLayout style="@style/todaydetail_info_layout">
+
+                <TextView
+                    style="@style/todaydetail_info_title"
+                    android:text="Wind" />
+
+                <org.openweathermap.ui.FontTextView
+                    android:id="@+id/w_now_visibility"
+                    style="@style/todaydetail_info_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_size"
+                android:background="@color/divider_secondary" />
+
+            <LinearLayout style="@style/todaydetail_info_layout">
+
+                <TextView
+                    style="@style/todaydetail_info_title"
+                    android:text="Pressure" />
+
+                <org.openweathermap.ui.FontTextView
+                    android:id="@+id/w_now_rainfall"
+                    style="@style/todaydetail_info_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:background="@color/divider" />
+
+    <include
+        layout="@layout/forecast_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

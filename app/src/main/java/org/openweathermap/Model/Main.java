@@ -1,4 +1,4 @@
-package org.openweather.Model;
+package org.openweathermap.Model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <org.openweathermap.ui.FontTextView
+        android:id="@+id/w_now_tmp_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_toLeftOf="@+id/w_now_tmp"
+        android:text="-"
+        android:textColor="@color/text_primary"
+        android:textSize="72dp"
+        android:visibility="gone"/>
+
+    <org.openweathermap.ui.FontTextView
+        android:id="@+id/w_now_tmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:paddingLeft="0dp"
+        android:text="--"
+        android:textColor="@color/text_primary"
+        android:textSize="72dp" />
+
+    <org.openweathermap.ui.FontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_toRightOf="@+id/w_now_tmp"
+        android:text="°"
+        android:textColor="@color/text_primary"
+        android:textSize="72dp" />
+
+    <TextView
+        android:id="@+id/w_now_cond_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/w_now_tmp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Mostly Cloudy"
+        android:textColor="@color/text_primary"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/w_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/w_now_cond_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:text="aqi"
+        android:textColor="@color/text_primary"
+        android:textSize="14dp" />
+
+    <org.openweathermap.ui.FontTextView
+        android:id="@+id/w_basic_update_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/w_time_text"
+        android:layout_centerHorizontal="true"
+        android:text="location"
+        android:textColor="@color/text_primary"
+        android:textSize="14dp" />
+
+</RelativeLayout>

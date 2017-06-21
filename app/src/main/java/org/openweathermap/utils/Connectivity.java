@@ -2,7 +2,7 @@
  * @author : Linu C. N.
  * Purpose : This class is used to check the available network connectivity.
  */
-package org.openweather.utils;
+package org.openweathermap.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

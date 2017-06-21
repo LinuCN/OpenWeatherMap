@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="divider">#30ffffff</color>
+    <color name="divider_secondary">#10ffffff</color>
+    <color name="white_alpha_60">#99ffffff</color>
+    <color name="white_alpha_80">#ccffffff</color>
+    <color name="widget_text_color">#ffffffff</color>
+    <color name="mxx_white_background">#ffefeff4</color>
+    <color name="w_divider">#30ffffff</color>
+    <color name="w_divider_secondary">#10ffffff</color>
+
+    <color name="text_title">#ccffffff</color>
+    <color name="text_primary">#ffffffff</color>
+    <color name="text_secondary">#88ffffff</color>
 </resources>
