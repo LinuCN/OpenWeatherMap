@@ -53,9 +53,12 @@ public class WeatherFragment extends Fragment {
         pagePosition = bundle.getInt("page_position");
         String latLng = bundle.getString("latLng");
 
-        if (latLng != null) {
+        if (latLng != null && !(latLng.equals(""))) {
             latitude = Double.valueOf(latLng.split(",")[0].trim());
             longitude = Double.valueOf(latLng.split(",")[1].trim());
+        }
+        if (pagePosition == 0) {
+            ((SelectedLocationListActivity) getActivity()).setLatLng(latitude, longitude);
         }
         return view;
     }
@@ -83,6 +86,7 @@ public class WeatherFragment extends Fragment {
             public void onPageSelected(int position) {
                 if (weatherModel != null) {
                     ((SelectedLocationListActivity) getActivity()).setHeaderDetails(weatherModel);
+                    ((SelectedLocationListActivity) getActivity()).setLatLng(latitude, longitude);
                 }
             }
 
@@ -122,7 +126,7 @@ public class WeatherFragment extends Fragment {
         todayTemp.setText("" + weatherModel.getMain().getTemp());
         todayTempMinMax.setText(weatherModel.getMain().getTemp_min() + degree + "  ~  " + weatherModel.getMain().getTemp_max() + degree);
         todayHumidity.setText("" + weatherModel.getMain().getHumidity() + "%");
-        todayVisibility.setText("" + weatherModel.getWind().getSpeed() + "mph W");
+        todayVisibility.setText("" + weatherModel.getWind().getSpeed() + " mph W");
         todayRainFall.setText("" + weatherModel.getMain().getPressure());
         todayFeelsLike.setText("" + weatherModel.getMain().getTemp_min() + degree);
 
@@ -159,7 +163,7 @@ public class WeatherFragment extends Fragment {
         displayString = Math.round(tempMax) + degree + padded + Math.round(tempMin) + degree;
         day4FontContentView.setText("" + displayString);
 
-        dateTimeMillis = forecastModel.getForecastWeatherList()[index += unit].getDt() * 1000;
+        dateTimeMillis = forecastModel.getForecastWeatherList()[index += (unit-3)].getDt() * 1000;
         day5textView.setText(AppUtils.extractDayFromDateString(dateTimeMillis));
         tempMin = forecastModel.getForecastWeatherList()[index].getMain().getTemp_min();
         tempMax = forecastModel.getForecastWeatherList()[index].getMain().getTemp_max();

@@ -13,7 +13,7 @@
         android:text="-"
         android:textColor="@color/text_primary"
         android:textSize="72dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <org.openweathermap.ui.FontTextView
         android:id="@+id/w_now_tmp"
@@ -67,4 +67,14 @@
         android:textColor="@color/text_primary"
         android:textSize="14dp" />
 
+    <ImageView
+        android:id="@+id/iv_MapView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_map"
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_above="@+id/w_basic_update_loc"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

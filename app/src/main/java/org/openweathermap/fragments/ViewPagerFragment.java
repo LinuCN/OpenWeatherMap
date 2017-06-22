@@ -34,7 +34,7 @@ public class ViewPagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_pager_container, container, false);
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
-        mCustomPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(),mViewPager);
+        mCustomPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(), mViewPager);
         mViewPager.setPageTransformer(false, new FadePageTransformer());
         mViewPager.setAdapter(mCustomPagerAdapter);
         return view;
@@ -45,22 +45,22 @@ public class ViewPagerFragment extends Fragment {
 
             if (position < -1 || position > 1) {
                 view.setAlpha(0);
-            }
-            else if (position <= 0 || position <= 1) {
+            } else if (position <= 0 || position <= 1) {
                 // Calculate alpha. Position is decimal in [-1,0] or [0,1]
                 float alpha = (position <= 0) ? position + 1 : 1 - position;
                 view.setAlpha(alpha);
-            }
-            else if (position == 0) {
+            } else if (position == 0) {
                 view.setAlpha(1);
             }
         }
     }
-    class CustomPagerAdapter extends FragmentPagerAdapter{
+
+    class CustomPagerAdapter extends FragmentPagerAdapter {
         Context mContext;
         String userSavedCities[];
         ViewPager mViewPager;
-        public CustomPagerAdapter(FragmentManager fm, Context context,ViewPager mViewPager) {
+
+        public CustomPagerAdapter(FragmentManager fm, Context context, ViewPager mViewPager) {
             super(getChildFragmentManager());
             mContext = context;
             this.mViewPager = mViewPager;
@@ -76,22 +76,22 @@ public class ViewPagerFragment extends Fragment {
             if (position == 0) {
                 GPSTracker gpsTracker = new GPSTracker(getActivity());
                 if (gpsTracker.canGetLocation()) {
-                    args.putString("latLng", "" + gpsTracker.getLatitude() + "," + gpsTracker.getLongitude());
+                    String latLng = gpsTracker.getLatitude() + "," + gpsTracker.getLongitude();
+                    args.putString("latLng", "" + latLng);
                 } else {
-                    Toast.makeText(getActivity(),"Current Location not found!", Toast.LENGTH_LONG).show();
-                    args.putString("latLng", (String) AppConstants.getAllCityDetails().get(userSavedCities[position-1]));
+                    Toast.makeText(getActivity(), "Current Location not found!", Toast.LENGTH_LONG).show();
+                    args.putString("latLng", AppUtils.getLatLngString(getActivity(),userSavedCities[position - 1]));
                 }
             } else {
-                args.putString("latLng", (String) AppConstants.getAllCityDetails().get(userSavedCities[position-1]));
+                args.putString("latLng", AppUtils.getLatLngString(getActivity(),userSavedCities[position - 1]));
             }
             fragment.setArguments(args);
-
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return userSavedCities.length+1;
+            return userSavedCities.length + 1;
         }
 
         @Override

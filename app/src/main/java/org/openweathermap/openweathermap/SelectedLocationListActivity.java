@@ -26,15 +26,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.openweathermap.Model.WeatherModel;
-import org.openweathermap.apis.ApiClient;
 import org.openweathermap.fragments.AddCityFragment;
 import org.openweathermap.fragments.EditCityFragment;
 import org.openweathermap.fragments.HelpFragment;
+import org.openweathermap.fragments.MapDialogFragment;
 import org.openweathermap.fragments.SettingsFragment;
+import org.openweathermap.fragments.ViewMapFragment;
 import org.openweathermap.fragments.ViewPagerFragment;
 import org.openweathermap.ui.FontTextView;
 import org.openweathermap.utils.AppUtils;
-import org.openweathermap.utils.GPSTracker;
 
 public class SelectedLocationListActivity extends AppCompatActivity {
 
@@ -43,6 +43,9 @@ public class SelectedLocationListActivity extends AppCompatActivity {
     public static Typeface typeface;
 
     WeatherModel weatherModel = null;
+
+    double latitude;
+    double longitude;
 
     public static Typeface getTypeface() {
         return typeface;
@@ -99,6 +102,19 @@ public class SelectedLocationListActivity extends AppCompatActivity {
                 }
             }
         });
+        findViewById(R.id.iv_MapView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapDialogFragment dFragment = new MapDialogFragment();
+                Bundle args = new Bundle();
+                args.putDouble("Lat", latitude);
+                args.putDouble("Lng", longitude);
+                args.putString("title", collapsingToolbarLayoutTitle);
+                dFragment.setArguments(args);
+                dFragment.show(getSupportFragmentManager(), "Map");
+                dFragment.setCancelable(false);
+            }
+        });
 
     }
 
@@ -125,14 +141,10 @@ public class SelectedLocationListActivity extends AppCompatActivity {
     public void setCollapsingToolbarLayoutTitle(String Title) {
         collapsingToolbarLayoutTitle = AppUtils.toTitleCase(Title);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);//Menu Resource, Menu
-        return true;
+    public void setLatLng(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -196,14 +208,6 @@ public class SelectedLocationListActivity extends AppCompatActivity {
                             }
                             addFragment(R.id.frame_container, new ViewPagerFragment(), "ViewPagerFragment", "ViewPagerBackFragment");
                             appBarLayout.setExpanded(true, true);
-                        } else if (menuItem.getItemId() == R.id.nav_weather) {
-                            FragmentManager fm = getSupportFragmentManager();
-                            if (fm.getBackStackEntryCount() > 1) {
-                                String name = fm.getBackStackEntryAt(0).getName();
-                                fm.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            }
-                            addFragment(R.id.frame_container, new ViewPagerFragment(), "ViewPagerFragment", "ViewPagerBackFragment");
-                            appBarLayout.setExpanded(true, true);
                         } else if (menuItem.getItemId() == R.id.nav_settings) {
                             addFragment(R.id.frame_container, new SettingsFragment(), "SettingsFragment", "SettingsBackFragment");
                             appBarLayout.setExpanded(false, false);
@@ -212,6 +216,9 @@ public class SelectedLocationListActivity extends AppCompatActivity {
                             appBarLayout.setExpanded(false, false);
                         } else if (menuItem.getItemId() == R.id.editCity) {
                             addFragment(R.id.frame_container, new EditCityFragment(), "EditCityFragment", "EditCityBackFragment");
+                            appBarLayout.setExpanded(false, false);
+                        } else if (menuItem.getItemId() == R.id.addFromMap) {
+                            addFragment(R.id.frame_container, new ViewMapFragment(), "ViewMapFragment", "ViewMapBackFragment");
                             appBarLayout.setExpanded(false, false);
                         }
                         menuItem.setChecked(true);
@@ -274,6 +281,4 @@ public class SelectedLocationListActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
 }

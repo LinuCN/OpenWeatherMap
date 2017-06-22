@@ -52,6 +52,16 @@ public class AppUtils {
         return sb.toString().trim();
     }
 
+    public static String getLatLngString(Context context, String cityName) {
+        String latlng = "";
+        latlng = (String) AppConstants.getAllCityDetails().get(cityName);
+        if (latlng == null || latlng.equals("")) {
+            final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            latlng = sp.getString(cityName, "");
+        }
+        return latlng;
+    }
+
     public static String convertMilliSecondsToFormattedDate(long milliSeconds) {
         final String dateFormat = "dd-MM-yyyy hh:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
@@ -60,14 +70,15 @@ public class AppUtils {
         calendar.setTimeInMillis(milliSeconds);
         return simpleDateFormat.format(calendar.getTime());
     }
-    public static String extractDayFromDateString(long milliSeconds){
+
+    public static String extractDayFromDateString(long milliSeconds) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE");
         return formatter.format(milliSeconds);
     }
 
     public static String[] getSavedCities(Context context) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        String cityList = sp.getString("citylist", "Pune,");
+        String cityList = sp.getString("citylist", "Pune");
         return cityList.split(",");
     }
 }

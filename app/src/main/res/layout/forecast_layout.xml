@@ -148,14 +148,16 @@
 
         <org.openweathermap.ui.FontTextView
             android:id="@+id/w_sun_rise"
+            style="@style/todaydetail_info_content"
             android:layout_marginRight="20dp"
-            android:text="5:50"
-            style="@style/todaydetail_info_content" />
+            android:text="-:--" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_size"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/divider_secondary" />
 
     <LinearLayout
@@ -169,15 +171,16 @@
 
         <org.openweathermap.ui.FontTextView
             android:id="@+id/w_sun_set"
+            style="@style/todaydetail_info_content"
             android:layout_marginRight="20dp"
-            android:text="6:30"
-            style="@style/todaydetail_info_content" />
+            android:text="-:--" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_size"
-        android:background="@color/divider" />
+        android:layout_marginTop="0dp"
+        android:background="@color/w_divider" />
 
 </LinearLayout>
 

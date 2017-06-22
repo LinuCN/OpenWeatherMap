@@ -48,7 +48,7 @@ public class EditCityFragment extends Fragment {
         TextView textView = (TextView) view.findViewById(R.id.noResults);
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         final SharedPreferences.Editor spEditor = sp.edit();
-        String cityListArray[] = sp.getString("citylist", "").split(",");
+        String cityListArray[] = sp.getString("citylist", "Pune").split(",");
         cityList = sp.getString("citylist", "");
         if (cityListArray.length == 0) {
             textView.setVisibility(View.VISIBLE);

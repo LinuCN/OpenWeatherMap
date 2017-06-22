@@ -15,32 +15,33 @@
   -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:id="@+id/maingroup"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_weather"
-            android:title="Weather" />
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_curr_location"
             android:title="Current Location" />
     </group>
 
-    <item android:title="Tools">
+    <item android:title="Cities">
         <menu>
             <item
                 android:id="@+id/addCity"
-                android:title="More Locations" />
+                android:title="  Add from List" />
+            <item
+                android:id="@+id/addFromMap"
+                android:title="  Add using Map" />
             <item
                 android:id="@+id/editCity"
-                android:title="Remove Locations" />
-            <item
-                android:id="@+id/nav_settings"
-                android:title="Settings" />
-            <item
-                android:id="@+id/nav_help"
-                android:title="Help" />
+                android:title="  Remove Locations" />
         </menu>
     </item>
-
+    <item android:title="Tools">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:title="  Settings" />
+            <item
+                android:id="@+id/nav_help"
+                android:title="  Help" />
+        </menu>
+    </item>
 </menu>
