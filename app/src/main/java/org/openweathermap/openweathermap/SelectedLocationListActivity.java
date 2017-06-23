@@ -30,6 +30,7 @@ import org.openweathermap.fragments.AddCityFragment;
 import org.openweathermap.fragments.EditCityFragment;
 import org.openweathermap.fragments.HelpFragment;
 import org.openweathermap.fragments.MapDialogFragment;
+import org.openweathermap.fragments.SelectCitiesFragment;
 import org.openweathermap.fragments.SettingsFragment;
 import org.openweathermap.fragments.ViewMapFragment;
 import org.openweathermap.fragments.ViewPagerFragment;
@@ -62,12 +63,6 @@ public class SelectedLocationListActivity extends AppCompatActivity {
         if (typeface == null) {
             typeface = Typeface.createFromAsset(getAssets(), "fonts/mxx_font2.ttf");
         }
-        if (checkLocationPermission()) {
-            addFragment(R.id.frame_container, new ViewPagerFragment(), "ViewPagerFragment", "ViewPagerBackFragment");
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -102,6 +97,13 @@ public class SelectedLocationListActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (checkLocationPermission()) {
+            loadFragment();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
         findViewById(R.id.iv_MapView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,29 +120,66 @@ public class SelectedLocationListActivity extends AppCompatActivity {
 
     }
 
+    void loadFragment() {
+        if (AppUtils.isAppProperlyInitialized(this)) {
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() > 0) {
+                String name = fm.getBackStackEntryAt(0).getName();
+                fm.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    addFragment(R.id.frame_container, new ViewPagerFragment(), "ViewPagerFragment", "ViewPagerBackFragment");
+                    showAppBarAsExpanded(true, true);
+                }
+            }, 2000);
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() > 0) {
+                String name = fm.getBackStackEntryAt(0).getName();
+                fm.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    addFragment(R.id.frame_container, new SelectCitiesFragment(), "SelectCitiesFragment", "SelectCitiesBackFragment");
+                    showAppBarAsExpanded(false, false);
+                }
+            }, 300);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-            mDrawerLayout.closeDrawer(Gravity.LEFT);
-        } else {
-            mDrawerLayout.openDrawer(Gravity.LEFT);
-        }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
-                } else {
-                    mDrawerLayout.openDrawer(Gravity.LEFT);
-                }
+        if (!AppUtils.isAppProperlyInitialized(this)) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
             }
-        }, 2000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                        mDrawerLayout.closeDrawer(Gravity.LEFT);
+                    } else {
+                        mDrawerLayout.openDrawer(Gravity.LEFT);
+                    }
+                }
+            }, 2000);
+        }
     }
 
     public void setCollapsingToolbarLayoutTitle(String Title) {
         collapsingToolbarLayoutTitle = AppUtils.toTitleCase(Title);
     }
+
+    public void showAppBarAsExpanded(boolean isExpanded, boolean animate) {
+        appBarLayout.setExpanded(isExpanded, animate);
+    }
+
     public void setLatLng(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
@@ -199,7 +238,7 @@ public class SelectedLocationListActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.nav_help) {
                             addFragment(R.id.frame_container, new HelpFragment(), "HelpFragment", "HelpBackFragment");
-                            appBarLayout.setExpanded(false, false);
+                            showAppBarAsExpanded(false, false);
                         } else if (menuItem.getItemId() == R.id.nav_curr_location) {
                             FragmentManager fm = getSupportFragmentManager();
                             if (fm.getBackStackEntryCount() > 1) {
@@ -207,19 +246,19 @@ public class SelectedLocationListActivity extends AppCompatActivity {
                                 fm.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                             }
                             addFragment(R.id.frame_container, new ViewPagerFragment(), "ViewPagerFragment", "ViewPagerBackFragment");
-                            appBarLayout.setExpanded(true, true);
+                            showAppBarAsExpanded(true, true);
                         } else if (menuItem.getItemId() == R.id.nav_settings) {
                             addFragment(R.id.frame_container, new SettingsFragment(), "SettingsFragment", "SettingsBackFragment");
-                            appBarLayout.setExpanded(false, false);
+                            showAppBarAsExpanded(false, false);
                         } else if (menuItem.getItemId() == R.id.addCity) {
                             addFragment(R.id.frame_container, new AddCityFragment(), "AddCityFragment", "AddCityBackFragment");
-                            appBarLayout.setExpanded(false, false);
+                            showAppBarAsExpanded(false, false);
                         } else if (menuItem.getItemId() == R.id.editCity) {
                             addFragment(R.id.frame_container, new EditCityFragment(), "EditCityFragment", "EditCityBackFragment");
-                            appBarLayout.setExpanded(false, false);
+                            showAppBarAsExpanded(false, false);
                         } else if (menuItem.getItemId() == R.id.addFromMap) {
                             addFragment(R.id.frame_container, new ViewMapFragment(), "ViewMapFragment", "ViewMapBackFragment");
-                            appBarLayout.setExpanded(false, false);
+                            showAppBarAsExpanded(false, false);
                         }
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
@@ -234,19 +273,7 @@ public class SelectedLocationListActivity extends AppCompatActivity {
             case 1: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    FragmentManager fm = getSupportFragmentManager();
-                    if (fm.getBackStackEntryCount() > 1) {
-                        String name = fm.getBackStackEntryAt(0).getName();
-                        fm.popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    }
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            addFragment(R.id.frame_container, new ViewPagerFragment(), "ViewPagerFragment", "ViewPagerBackFragment");
-                        }
-                    }, 2000);
-
-
+                    loadFragment();
                 } else {
                     Snackbar.make(collapsingToolbarLayout, "App will not work without this Permission!", Snackbar.LENGTH_LONG)
                             .setAction("Exit", new View.OnClickListener() {

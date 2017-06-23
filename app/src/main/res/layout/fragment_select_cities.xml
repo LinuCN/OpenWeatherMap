@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativelayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/placeName_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="3dp"
+        android:background="@color/w_divider" />
+
+    <TextView
+        android:id="@+id/placeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/placeName_divider"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:text="Add popular places"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/text_primary" />
+
+    <TextView
+        android:id="@+id/placeDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/placeName"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:text="Get weather from cities around the World"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/text_secondary" />
+
+    <View
+        android:id="@+id/recyclerview_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_below="@id/placeDesc"
+        android:layout_marginTop="3dp"
+        android:background="@color/w_divider" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerview_divider"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:scrollbars="horizontal" />
+
+    <View
+        android:id="@+id/continue_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_below="@id/recyclerview1"
+        android:layout_marginTop="0dp"
+        android:background="@color/w_divider" />
+
+    <TextView
+        android:id="@+id/txt_continue"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/continue_divider"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dip"
+        android:gravity="center"
+        android:text="Continue"
+        android:background="#4DFFFFFF"
+        android:textColor="@color/text_primary"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+</RelativeLayout>

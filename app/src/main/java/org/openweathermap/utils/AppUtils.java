@@ -56,6 +56,9 @@ public class AppUtils {
         String latlng = "";
         latlng = (String) AppConstants.getAllCityDetails().get(cityName);
         if (latlng == null || latlng.equals("")) {
+            latlng = (String) AppConstants.getSelectCityDetails().get(cityName);
+        }
+        if (latlng == null || latlng.equals("")) {
             final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             latlng = sp.getString(cityName, "");
         }
@@ -78,7 +81,26 @@ public class AppUtils {
 
     public static String[] getSavedCities(Context context) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        String cityList = sp.getString("citylist", "Pune");
+        String cityList = sp.getString("citylist", "Pune,");
         return cityList.split(",");
+    }
+    public static String getSavedCitiesString(Context context) {
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        String cityList = sp.getString("citylist", "Pune,");
+        return cityList;
+    }
+
+    public static boolean isAppProperlyInitialized(Context context) {
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean isAppProperlyInitialized = sp.getBoolean("isAppProperlyInitialized", false);
+        return isAppProperlyInitialized;
+
+    }
+
+    public static void setAppInitializedProperly(Context context) {
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor spEditor = sp.edit();
+        spEditor.putBoolean("isAppProperlyInitialized", true);
+        spEditor.commit();
     }
 }

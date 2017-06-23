@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.openweathermap.openweathermap.R;
 import org.openweathermap.openweathermap.SelectedLocationListActivity;
+import org.openweathermap.utils.AppUtils;
 import org.openweathermap.utils.GPSTracker;
 
 import java.io.IOException;
@@ -93,10 +94,10 @@ public class ViewMapFragment extends Fragment {
                                     Toast.makeText(getActivity(), cityName + " Added!", Toast.LENGTH_SHORT).show();
                                     final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
                                     final SharedPreferences.Editor spEditor = sp.edit();
-                                    String cityList = sp.getString("citylist", "");
+                                    String cityList = AppUtils.getSavedCitiesString(getActivity());
                                     cityList += cityName + ",";
                                     spEditor.putString("citylist", cityList);
-                                    spEditor.putString(cityName, markerLocation.latitude+","+markerLocation.longitude);
+                                    spEditor.putString(cityName, markerLocation.latitude + "," + markerLocation.longitude);
                                     spEditor.commit();
                                 }
                             })
@@ -151,11 +152,9 @@ public class ViewMapFragment extends Fragment {
         Geocoder geoCoder = new Geocoder(getActivity().getBaseContext(), Locale.getDefault());
         try {
             List<Address> addresses = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-
             if (addresses.size() > 0) {
                 return addresses.get(0).getLocality();
             }
-
         } catch (IOException e1) {
             e1.printStackTrace();
         }

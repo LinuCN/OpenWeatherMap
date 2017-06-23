@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import org.openweathermap.openweathermap.R;
+
 import java.util.HashMap;
 
 /**
@@ -22,9 +24,9 @@ public class AppConstants {
     public static final String TAG = "OPEN_WEATHER_API";
     public static final String API = "http://api.openweathermap.org/data/2.5/";
 
-    public static String getSelectedUnit(Context context){
+    public static String getSelectedUnit(Context context) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        return sp.getString("unit","metric");
+        return sp.getString("unit", "metric");
     }
 
     public static HashMap getAllCityDetails() {
@@ -73,4 +75,33 @@ public class AppConstants {
         return m1;
     }
 
+    public static HashMap getSelectCityDetails() {
+        HashMap m1 = new HashMap<>();
+        m1.put("Bikaner- India", "28.022935,73.311916");
+        m1.put("Venice- Italy", "45.440847,12.315515");
+        m1.put("Hong Kong- China", "22.396428,114.109497");
+        m1.put("Paris- France", "48.856614,2.352222");
+        m1.put("Amsterdam- the Netherlands", "52.370216,4.895168");
+        m1.put("St. Petersburg- Russia", "59.934280,30.335099");
+        m1.put("Queenstown- New Zealand", "-45.031162,168.662644");
+        m1.put("Singapore", "1.352083,103.819836");
+        m1.put("Florence- Italy", "43.769560,11.255814");
+        m1.put("Sydney- Australia", "-33.868820,151.209296");
+        return m1;
+    }
+
+    public static HashMap<String, Integer> getSelectCityImageDetails() {
+        HashMap<String, Integer> m1 = new HashMap<String, Integer>();
+        m1.put("Bikaner- India", R.mipmap.bikaner);
+        m1.put("Venice- Italy", R.mipmap.venice);
+        m1.put("Hong Kong- China", R.mipmap.hongkong);
+        m1.put("Paris- France", R.mipmap.paris);
+        m1.put("Amsterdam- the Netherlands", R.mipmap.amsterdam);
+        m1.put("St. Petersburg- Russia", R.mipmap.petersburg);
+        m1.put("Queenstown- New Zealand", R.mipmap.queenstown);
+        m1.put("Singapore", R.mipmap.singapore);
+        m1.put("Florence- Italy", R.mipmap.florence);
+        m1.put("Sydney- Australia", R.mipmap.sydney);
+        return m1;
+    }
 }

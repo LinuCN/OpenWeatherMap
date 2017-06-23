@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import org.openweathermap.openweathermap.R;
 import org.openweathermap.openweathermap.SelectedLocationListActivity;
 import org.openweathermap.utils.AppConstants;
+import org.openweathermap.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,6 @@ public class AddCityFragment extends Fragment {
     private ListView lv;
     ArrayAdapter<String> adapter;
     EditText inputSearch;
-    ArrayList<HashMap<String, String>> cityList;
 
     @Nullable
     @Override
@@ -55,7 +55,7 @@ public class AddCityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String listItem = (String) lv.getItemAtPosition(position);
-                String cityList = sp.getString("citylist", "Bangalore,");
+                String cityList = AppUtils.getSavedCitiesString(getActivity());
                 if (cityList.contains(listItem)) {
                     Toast.makeText(getActivity(), "Its Already Added!", Toast.LENGTH_LONG).show();
                 } else {

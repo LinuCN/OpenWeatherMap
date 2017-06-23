@@ -22,6 +22,7 @@ import android.widget.Toast;
 import org.openweathermap.openweathermap.R;
 import org.openweathermap.openweathermap.SelectedLocationListActivity;
 import org.openweathermap.utils.AppConstants;
+import org.openweathermap.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,12 +45,15 @@ public class EditCityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_city, container, false);
 
-        ((SelectedLocationListActivity)getActivity()).setCollapsingToolbarLayoutTitle("Remove City");
+        ((SelectedLocationListActivity) getActivity()).setCollapsingToolbarLayoutTitle("Remove City");
         TextView textView = (TextView) view.findViewById(R.id.noResults);
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         final SharedPreferences.Editor spEditor = sp.edit();
-        String cityListArray[] = sp.getString("citylist", "Pune").split(",");
-        cityList = sp.getString("citylist", "");
+        String cityListArray[] = AppUtils.getSavedCities(getActivity());
+        for (int i = 0; i < cityListArray.length; i++) {
+            cityListArray[i] = cityListArray[i].replace("-", ",");
+        }
+        cityList = AppUtils.getSavedCitiesString(getActivity());
         if (cityListArray.length == 0) {
             textView.setVisibility(View.VISIBLE);
             return view;
@@ -59,9 +63,11 @@ public class EditCityFragment extends Fragment {
         adapter = new ArrayAdapter<String>(getActivity(), R.layout.edit_city_list_item, R.id.city_name, cities);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            String listItem;
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String listItem = (String) lv.getItemAtPosition(position);
+                listItem = (String) lv.getItemAtPosition(position);
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Delete " + listItem + "?")
@@ -70,10 +76,11 @@ public class EditCityFragment extends Fragment {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Toast.makeText(getActivity(), listItem + " Removed!", Toast.LENGTH_SHORT).show();
+                                listItem = listItem.replace(",", "-");
                                 cityList = cityList.replace(listItem + ",", "");
                                 spEditor.putString("citylist", cityList);
                                 spEditor.commit();
-                                List cities = Arrays.asList(cityList.split(","));
+                                List cities = Arrays.asList(AppUtils.getSavedCities(getActivity()));
                                 adapter = new ArrayAdapter<String>(getActivity(), R.layout.search_list_item, R.id.city_name, cities);
                                 lv.setAdapter(adapter);
 
